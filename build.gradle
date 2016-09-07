@@ -1,10 +1,13 @@
-plugins {
-    id 'scala'
-    id 'play'
-    id 'idea'
-    id 'play-coffeescript'
-}
 
+apply plugin: 'scala'
+apply plugin: 'play'
+apply plugin: 'idea'
+apply plugin: 'play-coffeescript'
+
+ScalaCompileOptions.metaClass.daemonServer = true
+ScalaCompileOptions.metaClass.fork = true
+ScalaCompileOptions.metaClass.useAnt = false
+ScalaCompileOptions.metaClass.useCompileDaemon = false
 repositories {
     jcenter()
     maven {
