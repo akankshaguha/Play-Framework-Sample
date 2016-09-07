@@ -1,0 +1,52 @@
+plugins {
+    id 'scala'
+    id 'play'
+    id 'idea'
+    id 'play-coffeescript'
+}
+
+repositories {
+    jcenter()
+    maven {
+        name "typesafe-maven-release"
+        url "https://repo.typesafe.com/typesafe/maven-releases"
+    }
+    ivy {
+        name "typesafe-ivy-release"
+        url "https://repo.typesafe.com/typesafe/ivy-releases"
+        layout "ivy"
+    }
+   maven {
+        name "gradle-js"
+        url "https://repo.gradle.org/gradle/javascript-public"
+   }
+}
+dependencies {
+    play "commons-lang:commons-lang:2.6"
+    play "org.scala-lang:scala-library:2.11.6"
+}
+model {
+    components {
+        play {
+            platform play: '2.4.8', scala: '2.11'
+        }
+    }
+}
+model {
+    components {
+        play {
+            injectedRoutesGenerator = true
+        }
+    }
+}
+model {
+    components {
+        play {
+            binaries.all {
+                tasks.withType(PlatformScalaCompile) {
+                    scalaCompileOptions.additionalParameters = ["-feature", "-language:implicitConversions"]
+                }
+            }
+        }
+    }
+}
